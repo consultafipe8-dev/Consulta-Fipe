@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabela Fipe: Guia Completo para Consultar o Preco Medio de Carros, Motos e Caminhoes</title>
+  <meta name="description" content="Guia completo sobre a Tabela Fipe: como consultar precos medios de carros, motos e caminhoes, como interpretar os valores e usar a referencia para negociar com seguranca." />
+  <meta property="og:title" content="Tabela Fipe: Guia Completo para Consultar o Preco Medio de Veiculos" />
+  <meta property="og:description" content="Tudo sobre a Tabela Fipe: consulta de carros, motos e caminhoes, interpretacao de precos e dicas para negociar com seguranca." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://consultafipe.app/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green:       #16a34a;
+      --green-light: #22c55e;
+      --green-bg:    #f0fdf4;
+      --yellow:      #eab308;
+      --blue:        #2563eb;
+      --blue-light:  #3b82f6;
+      --bg:          #f1f5f9;
+      --white:       #ffffff;
+      --text-dark:   #0f172a;
+      --text-body:   #334155;
+      --text-muted:  #64748b;
+      --border:      #e2e8f0;
+      --radius:      12px;
+      --shadow:      0 4px 24px rgba(0,0,0,.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-body);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .navbar-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; height: 62px;
+    }
+    .navbar-brand {
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none; font-weight: 700; font-size: 1.15rem; color: var(--green);
+    }
+    .navbar-brand span { color: var(--text-dark); }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-body); font-size: 0.875rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 8px; transition: background .2s, color .2s;
+    }
+    .nav-links a:hover { background: var(--green-bg); color: var(--green); }
+
+    /* Flag bar */
+    .flag-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--green) 33%, var(--yellow) 33% 66%, var(--blue) 66%);
+      transition: background 0.1s;
+    }
+
+    /* BREADCRUMB */
+    .breadcrumb-wrap { max-width: 900px; margin: 20px auto 0; padding: 0 24px; }
+    .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--green); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* ARTICLE LAYOUT */
+    .article-wrap { max-width: 900px; margin: 0 auto; padding: 24px 24px 80px; }
+
+    /* HERO */
+    .hero {
+      background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 48px 48px 40px; margin-bottom: 32px; border-top: 4px solid var(--green);
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: '🚗'; position: absolute; right: 40px; top: 40px;
+      font-size: 5rem; opacity: .07; pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-bg); color: var(--green); font-size: 0.78rem; font-weight: 600;
+      padding: 4px 12px; border-radius: 999px; margin-bottom: 16px; border: 1px solid #bbf7d0;
+    }
+    .hero h1 {
+      font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; color: var(--text-dark);
+      line-height: 1.3; margin-bottom: 16px;
+    }
+    .hero h1 .highlight { color: var(--green); }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.82rem; color: var(--text-muted);
+      margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* ARTICLE CARD */
+    .article-card {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 40px 48px; margin-bottom: 28px;
+    }
+
+    /* TYPOGRAPHY */
+    .article-card p { color: var(--text-body); margin-bottom: 18px; font-size: 1rem; line-height: 1.8; }
+    .article-card h2 {
+      font-size: 1.45rem; font-weight: 700; color: var(--text-dark);
+      margin: 36px 0 14px; padding-bottom: 10px; border-bottom: 2px solid var(--green-bg);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .article-card h2::before {
+      content: ''; display: inline-block; width: 4px; height: 22px;
+      background: var(--green); border-radius: 2px; flex-shrink: 0;
+    }
+    .article-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin: 28px 0 10px; }
+    .article-card h4 {
+      font-size: 1rem; font-weight: 600; color: var(--green); margin: 20px 0 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .article-card h4::before { content: '->'; color: var(--green); }
+
+    /* LISTS */
+    .article-card ul, .article-card ol { margin: 12px 0 18px 0; padding-left: 0; list-style: none; }
+    .article-card ul li, .article-card ol li {
+      position: relative; padding: 5px 0 5px 24px;
+      color: var(--text-body); font-size: .97rem; line-height: 1.6;
+    }
+    .article-card ul li::before { content: 'checkmark'; position: absolute; left: 0; color: var(--green); font-weight: 700; font-size: .85rem; }
+    .article-card ol { counter-reset: ol-counter; }
+    .article-card ol li { counter-increment: ol-counter; }
+    .article-card ol li::before { content: counter(ol-counter)"."; position: absolute; left: 0; color: var(--green); font-weight: 700; font-size: .85rem; }
+
+    /* STEP BOXES */
+    .step-box { display: flex; gap: 18px; background: var(--bg); border-radius: 10px; padding: 20px; margin: 16px 0; border-left: 4px solid var(--green); }
+    .step-num { width: 34px; height: 34px; background: var(--green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .9rem; flex-shrink: 0; }
+    .step-content h4 { margin: 0 0 6px; font-size: 1rem; color: var(--text-dark); }
+    .step-content h4::before { display: none; }
+    .step-content p { margin: 0; font-size: .9rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 10px; padding: 20px 24px; margin: 20px 0; display: flex; gap: 14px; align-items: flex-start; }
+    .callout.tip  { background: #f0fdf4; border-left: 4px solid var(--green); }
+    .callout.warn { background: #fffbeb; border-left: 4px solid var(--yellow); }
+    .callout.info { background: #eff6ff; border-left: 4px solid var(--blue); }
+    .callout-icon { font-size: 1.4rem; flex-shrink: 0; line-height: 1; }
+    .callout-body strong { display: block; font-size: .9rem; color: var(--text-dark); margin-bottom: 4px; }
+    .callout-body p { margin: 0; font-size: .875rem; color: var(--text-body); }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; margin: 20px 0; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    thead { background: var(--green); color: white; }
+    thead th { padding: 14px 18px; text-align: left; font-weight: 600; }
+    tbody tr:nth-child(even) { background: var(--bg); }
+    tbody tr { transition: background .15s; }
+    tbody tr:hover { background: #d1fae5; }
+    tbody td { padding: 12px 18px; color: var(--text-body); border-bottom: 1px solid var(--border); }
+    tbody td:first-child { font-weight: 600; color: var(--text-dark); }
+
+    /* INLINE LINK */
+    a.inline-link { color: var(--green); font-weight: 600; text-decoration: underline; text-decoration-color: #86efac; text-underline-offset: 3px; transition: color .2s; }
+    a.inline-link:hover { color: var(--green-light); }
+
+    /* FAQ */
+    .faq-item { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+    .faq-question {
+      width: 100%; background: var(--white); border: none; padding: 18px 22px;
+      text-align: left; font-size: .95rem; font-weight: 600; color: var(--text-dark);
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      transition: background .2s; font-family: inherit;
+    }
+    .faq-question:hover { background: var(--green-bg); }
+    .faq-question .icon {
+      width: 24px; height: 24px; background: var(--green-bg); color: var(--green);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; flex-shrink: 0; transition: transform .3s, background .2s;
+    }
+    .faq-item.open .faq-question .icon { transform: rotate(45deg); background: var(--green); color: white; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .25s; padding: 0 22px; font-size: .9rem; color: var(--text-body); border-top: 1px solid transparent; }
+    .faq-item.open .faq-answer { max-height: 400px; padding: 14px 22px 18px; border-top-color: var(--border); }
+
+    /* IMAGES */
+    .article-img { width: 100%; border-radius: 10px; margin: 24px 0; object-fit: cover; max-height: 380px; box-shadow: 0 4px 20px rgba(0,0,0,.1); display: block; }
+    .img-caption { text-align: center; font-size: .8rem; color: var(--text-muted); margin-top: -16px; margin-bottom: 20px; }
+
+    /* FORMULA CARD */
+    .formula-card {
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+      color: white; border-radius: var(--radius); padding: 28px 32px; margin: 24px 0; text-align: center;
+    }
+    .formula-card .label { font-size: .8rem; opacity: .8; margin-bottom: 14px; text-transform: uppercase; letter-spacing: .05em; }
+    .formula-card .formula { font-size: 1.1rem; font-weight: 700; display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .formula-card .pill { background: rgba(255,255,255,.18); padding: 12px 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,.25); font-size: .9rem; line-height: 1.4; }
+    .formula-card .arrow { opacity: .7; font-size: 1.2rem; }
+
+    /* CHECKLIST BOX */
+    .checklist-box { background: var(--green-bg); border: 1px solid #bbf7d0; border-radius: 10px; padding: 22px 26px; margin: 18px 0; }
+    .checklist-box .title { font-weight: 700; color: var(--green); margin-bottom: 12px; font-size: .95rem; }
+    .checklist-box ul { margin: 0; }
+
+    /* CONCLUSION CARD */
+    .conclusion-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; border-radius: var(--radius); padding: 40px; margin: 32px 0 0; }
+    .conclusion-card h2 { color: white; border-bottom-color: rgba(255,255,255,.1); font-size: 1.3rem; }
+    .conclusion-card h2::before { background: var(--green-light); }
+    .conclusion-card p { color: rgba(255,255,255,.8); }
+    .conclusion-card .summary-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+    .summary-pill { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 16px; text-align: center; }
+    .summary-pill .icon-big { font-size: 1.8rem; margin-bottom: 8px; }
+    .summary-pill .pill-label { font-size: .78rem; color: rgba(255,255,255,.6); margin-bottom: 4px; }
+    .summary-pill .pill-value { font-size: .88rem; color: white; font-weight: 600; }
+
+    /* CTA BUTTON */
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px; background: var(--green); color: white;
+      text-decoration: none; padding: 14px 28px; border-radius: 10px; font-weight: 700; font-size: .95rem;
+      margin-top: 20px; transition: background .2s, transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 14px rgba(22,163,74,.35);
+    }
+    .cta-btn:hover { background: #15803d; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(22,163,74,.45); }
+
+    /* FOOTER */
+    footer { background: #0f172a; color: rgba(255,255,255,.55); text-align: center; padding: 28px 24px; font-size: .82rem; }
+    footer a { color: var(--green-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* RESPONSIVE */
+    @media(max-width: 768px) {
+      .hero, .article-card { padding: 28px 22px; }
+      .nav-links { display: none; }
+      .conclusion-card .summary-row { grid-template-columns: 1fr; }
+      .formula-card .formula { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="https://consultafipe.app/" class="navbar-brand" id="nav-brand">
+        <span>&#128663;</span>
+        Tabela <span>FIPE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="https://consultafipe.app/" id="nav-inicio">Inicio</a></li>
+        <li><a href="https://consultafipe.app/" id="nav-placa">Pela Placa</a></li>
+        <li><a href="https://consultafipe.app/" id="nav-estados">Estados</a></li>
+        <li><a href="https://consultafipe.app/" id="nav-veiculos">Veiculos</a></li>
+        <li><a href="https://consultafipe.app/" id="nav-marcas">Marcas</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="flag-bar" id="flag-bar"></div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="https://consultafipe.app/" id="bc-home">Inicio</a>
+      <span>&rsaquo;</span>
+      <span>Artigos</span>
+      <span>&rsaquo;</span>
+      <span>Tabela Fipe: Guia Completo</span>
+    </nav>
+  </div>
+
+  <!-- MAIN -->
+  <main class="article-wrap" id="main-content">
+
+    <!-- HERO -->
+    <header class="hero" id="article-hero">
+      <div class="hero-badge">&#128214; Guia Completo</div>
+      <h1>
+        <span class="highlight">Tabela Fipe:</span> Guia Completo para Consultar o Preco Medio de Carros, Motos e Caminhoes
+      </h1>
+      <div class="hero-meta">
+        <span>&#128663; Tabela FIPE</span>
+        <span>&#128197; Atualizado em 2026</span>
+        <span>&#9201; Leitura: ~15 min</span>
+        <span>&#127463;&#127479; Mercado Brasileiro</span>
+      </div>
+    </header>
+
+    <!-- ARTICLE -->
+    <article class="article-card" id="article-main">
+
+      <p>Comprar, vender ou avaliar um veiculo exige muito mais do que simplesmente comparar alguns anuncios na internet. Para saber se determinado carro, moto ou caminhao esta sendo negociado por um preco razoavel, e importante ter uma referencia confiavel de mercado. E justamente nesse contexto que a <strong>Tabela Fipe</strong> se tornou uma das principais referencias utilizadas no Brasil.</p>
+
+      <p>A Tabela Fipe apresenta precos medios de veiculos no mercado nacional e pode ajudar consumidores, vendedores, empresas, seguradoras e profissionais do setor automotivo a compreender melhor o valor de determinado modelo. A propria Fundacao Instituto de Pesquisas Economicas informa que os valores servem como parametro para negociacoes e avaliacoes, pois o preco efetivamente praticado pode variar conforme regiao, conservacao, acessorios, caracteristicas do veiculo e condicoes de oferta e procura.</p>
+
+      <img src="img1.jpg" alt="Pessoa consultando Tabela FIPE em laptop em uma concessionaria" class="article-img" id="img-hero" onerror="this.style.display='none'" />
+
+      <p>Neste guia, voce vai entender de maneira simples o que e a Tabela Fipe, como consultar um veiculo, como interpretar o preco apresentado, quais informacoes sao necessarias, por que o valor pode ser diferente do preco anunciado e quais cuidados devem ser tomados antes de comprar ou vender um veiculo. Tambem veremos como utilizar uma consulta de preco como ponto de partida para uma analise mais completa.</p>
+
+      <!-- O QUE E -->
+      <h2 id="o-que-e">O que e a Tabela Fipe?</h2>
+      <p>A Tabela Fipe e uma referencia de precos medios de veiculos elaborada pela Fundacao Instituto de Pesquisas Economicas, conhecida como Fipe. Seu objetivo e apresentar valores medios de veiculos comercializados no mercado nacional. A ferramenta contempla diferentes categorias, incluindo automoveis, utilitarios, motos, caminhoes e micro-onibus.</p>
+
+      <div class="callout info" id="callout-referencia">
+        <div class="callout-icon">&#8505;&#65039;</div>
+        <div class="callout-body">
+          <strong>Ponto Importante</strong>
+          <p>O preco da Tabela Fipe nao significa necessariamente que aquele seja o preco exato pelo qual o veiculo sera comprado ou vendido. Ele e uma <em>referencia media</em> de mercado.</p>
+        </div>
+      </div>
+
+      <p>Por exemplo, imagine que um determinado carro apresente um valor de R$ 70.000 como preco medio de referencia. Um veiculo extremamente conservado, com baixa quilometragem, pneus novos e historico de manutencao organizado pode ser anunciado acima desse valor. Ja outro exemplar com problemas mecanicos, pintura danificada ou quilometragem elevada pode ser negociado por menos. Portanto, a Tabela Fipe deve ser interpretada como uma <strong>referencia</strong>, e nao como uma tabela obrigatoria de precos.</p>
+
+      <!-- PARA QUE SERVE -->
+      <h2 id="para-que-serve">Para que serve a Tabela Fipe?</h2>
+      <p>A consulta pode ser util em diversas situacoes relacionadas a compra, venda e avaliacao de veiculos. Entre os principais usos estao:</p>
+      <ul>
+        <li>Pesquisar o preco medio de um carro</li>
+        <li>Comparar diferentes modelos</li>
+        <li>Avaliar um veiculo usado</li>
+        <li>Negociar a compra de um automovel</li>
+        <li>Definir uma base inicial para venda</li>
+        <li>Comparar anuncios de veiculos semelhantes</li>
+        <li>Ter uma referencia para seguros</li>
+        <li>Auxiliar determinadas avaliacoes financeiras</li>
+        <li>Acompanhar mudancas no valor medio de um modelo</li>
+        <li>Analisar o mercado de veiculos usados</li>
+      </ul>
+      <p>A Fipe informa que os precos medios de veiculos sao utilizados como referencia por seguradoras e em contratos de compra e venda. A instituicao tambem informa que seus dados podem servir de base para determinados calculos relacionados ao IPVA em estados brasileiros. Isso explica por que a consulta se tornou tao conhecida entre proprietarios e compradores.</p>
+
+      <!-- COMO CONSULTAR -->
+      <h2 id="como-consultar">Como consultar a Tabela Fipe?</h2>
+      <p>A consulta e relativamente simples, mas e importante selecionar corretamente as informacoes do veiculo. De forma geral, voce precisa identificar a categoria do veiculo, a marca, o modelo, o ano-modelo e o mes e ano de referencia da consulta.</p>
+      <p>A pagina oficial da Fipe permite pesquisas de carros e utilitarios, caminhoes e micro-onibus e motos. Tambem existe a possibilidade de pesquisa utilizando o <strong>Codigo Fipe</strong> quando essa informacao esta disponivel. Uma maneira pratica de realizar a pesquisa e seguir esta sequencia:</p>
+
+      <div class="step-box" id="step1">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Escolha a categoria</h4>
+          <p>Primeiro, identifique se voce esta procurando um carro ou utilitario, moto, caminhao ou micro-onibus. Escolher a categoria correta evita que voce consulte um veiculo diferente daquele que deseja avaliar.</p>
+        </div>
+      </div>
+      <div class="step-box" id="step2">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Selecione a marca</h4>
+          <p>Depois, procure a fabricante do veiculo: Volkswagen, Chevrolet, Fiat, Toyota, Honda, Hyundai, Ford, Renault, Nissan, Jeep, entre outras. A disponibilidade exata depende da base de consulta e do periodo pesquisado.</p>
+        </div>
+      </div>
+      <div class="step-box" id="step3">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Selecione o modelo</h4>
+          <p>Depois de escolher a marca, sera necessario selecionar o modelo correspondente. Essa etapa merece atencao porque um mesmo veiculo pode possuir diversas versoes com precos distintos.</p>
+        </div>
+      </div>
+      <div class="step-box" id="step4">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Informe o ano-modelo</h4>
+          <p>A Fipe esclarece que, na consulta de veiculos, o ano indicado corresponde ao <strong>ano do modelo</strong>, e nao necessariamente ao ano de fabricacao. Essa diferenca pode alterar significativamente o resultado da pesquisa.</p>
+        </div>
+      </div>
+      <div class="step-box" id="step5">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Confira o mes de referencia</h4>
+          <p>Os valores apresentados estao associados a um mes e ano de referencia. Ao utilizar uma informacao encontrada em anuncio ou conversa, verifique sempre o periodo correspondente.</p>
+        </div>
+      </div>
+
+      <!-- RESULTADO -->
+      <h2 id="resultado-consulta">O que aparece no resultado da consulta?</h2>
+      <p>Dependendo da consulta realizada, voce podera encontrar: Mes de referencia, Codigo Fipe, Marca, Modelo, Ano-modelo, Data da consulta e Preco medio. Essas informacoes ajudam a evitar confusao entre modelos parecidos.</p>
+
+      <!-- PRECO REAL -->
+      <h2 id="preco-real">O preco da Tabela Fipe e o preco real do veiculo?</h2>
+      <p>Nao necessariamente. Essa e uma das duvidas mais importantes sobre a Tabela Fipe. O valor apresentado representa um <strong>preco medio de referencia</strong>. O preco real de negociacao pode ser maior ou menor. A propria Fipe explica que os precos efetivamente praticados podem variar por fatores como: Regiao, Estado de conservacao, Cor, Acessorios, Oferta e procura e Caracteristicas especificas do veiculo.</p>
+
+      <img src="img2.jpg" alt="Mecanico e proprietario inspecionando carro em oficina" class="article-img" id="img-mecanico" onerror="this.style.display='none'" />
+      <p class="img-caption">Inspecao mecanica e essencial para complementar a consulta da Tabela Fipe</p>
+
+      <p>Imagine dois carros exatamente do mesmo modelo e ano. O primeiro possui baixa quilometragem, revisoes realizadas, pneus novos, interior conservado, pintura original e documentacao organizada. O segundo apresenta alta quilometragem, arranhoes, pneus desgastados, manutencao atrasada e pequenos problemas mecanicos. Embora ambos possam aparecer associados ao mesmo modelo e ano na Tabela Fipe, o preco de negociacao pode ser bastante diferente.</p>
+
+      <!-- POR QUE DIFERENTE -->
+      <h2 id="por-que-diferente">Por que o preco anunciado pode ser diferente da Tabela Fipe?</h2>
+      <h3>Estado de conservacao</h3>
+      <p>Um carro bem conservado tende a despertar maior interesse do comprador. Da mesma forma, um veiculo que precisa de reparos pode ter seu preco reduzido.</p>
+      <h3>Quilometragem</h3>
+      <p>A quilometragem pode influenciar a percepcao de valor do mercado. Dois veiculos do mesmo ano e modelo podem apresentar precos diferentes devido a utilizacao acumulada.</p>
+      <h3>Localizacao</h3>
+      <p>O mercado automotivo nao funciona exatamente da mesma maneira em todas as regioes do Brasil. Oferta, demanda, impostos, disponibilidade e preferencias locais podem influenciar os precos.</p>
+      <h3>Acessorios</h3>
+      <p>Itens adicionais tambem podem influenciar uma negociacao: central multimidia, bancos especiais, rodas, equipamentos de seguranca, acessorios originais e itens instalados posteriormente. Entretanto, nao significa que todo acessorio aumentara o valor do veiculo na mesma proporcao do investimento realizado.</p>
+      <h3>Historico do veiculo</h3>
+      <p>Um automovel com historico de manutencao documentado pode transmitir mais confianca ao comprador. Por outro lado, veiculos com historico desconhecido podem enfrentar maior resistencia durante a negociacao.</p>
+
+      <!-- CARROS -->
+      <h2 id="tabela-carros">Tabela Fipe para carros</h2>
+      <p>Os carros estao entre os veiculos mais pesquisados. Antes de comprar um automovel usado, e possivel utilizar a referencia da Tabela Fipe para criar uma primeira estimativa de valor. Porem, uma analise completa deve considerar outros elementos.</p>
+
+      <div class="checklist-box" id="checklist-carro">
+        <div class="title">&#9989; Checklist para avaliar um carro usado</div>
+        <ul>
+          <li>Consulte o modelo correto</li>
+          <li>Confira o ano-modelo</li>
+          <li>Verifique a versao</li>
+          <li>Compare anuncios semelhantes</li>
+          <li>Analise a quilometragem</li>
+          <li>Observe o estado da pintura</li>
+          <li>Confira pneus</li>
+          <li>Verifique o interior</li>
+          <li>Avalie o historico de manutencao</li>
+          <li>Faca uma inspecao mecanica</li>
+          <li>Confira a documentacao</li>
+          <li>Pesquise eventuais restricoes antes de concluir a negociacao</li>
+        </ul>
+      </div>
+
+      <p>A Tabela Fipe ajuda principalmente na parte de referencia de preco. Ela nao substitui uma inspecao fisica ou uma analise documental.</p>
+
+      <!-- MOTOS -->
+      <h2 id="tabela-motos">Tabela Fipe para motos</h2>
+      <p>A consulta tambem pode ser utilizada para motocicletas. O processo segue uma logica semelhante: identificar a marca, selecionar o modelo, escolher o ano-modelo e conferir o valor correspondente ao periodo da consulta. No entanto, motocicletas podem sofrer grande influencia de fatores especificos:</p>
+      <ul>
+        <li>Quilometragem</li>
+        <li>Estado dos pneus</li>
+        <li>Condicao da relacao</li>
+        <li>Historico de manutencao</li>
+        <li>Acessorios e modificacoes</li>
+        <li>Uso profissional</li>
+        <li>Conservacao geral</li>
+      </ul>
+
+      <img src="img3.jpg" alt="Pessoa consultando FIPE no celular em patio de veiculos" class="article-img" id="img-celular" onerror="this.style.display='none'" />
+
+      <p>Uma moto utilizada diariamente em atividades profissionais pode apresentar um desgaste diferente de outra usada ocasionalmente. Por isso, novamente, o valor medio deve ser tratado como uma referencia.</p>
+
+      <!-- CAMINHOES -->
+      <h2 id="tabela-caminhoes">Tabela Fipe para caminhoes</h2>
+      <p>Caminhoes tambem podem ser consultados dentro das categorias disponibilizadas pela Fipe. Nesse caso, a analise pode ser ainda mais complexa porque veiculos pesados possuem caracteristicas que influenciam diretamente a negociacao:</p>
+      <ul>
+        <li>Tipo de caminhao e modelo</li>
+        <li>Ano-modelo e configuracao</li>
+        <li>Quilometragem e estado mecanico</li>
+        <li>Implemento</li>
+        <li>Historico de utilizacao</li>
+        <li>Conservacao e regiao</li>
+      </ul>
+      <p>Para veiculos utilizados profissionalmente, a condicao mecanica pode ter impacto significativo na decisao de compra.</p>
+
+      <!-- CODIGO FIPE -->
+      <h2 id="codigo-fipe">Codigo Fipe: o que e?</h2>
+      <p>O Codigo Fipe e uma identificacao associada ao modelo consultado. Ele pode facilitar a pesquisa quando o usuario ja conhece o codigo correspondente ao veiculo. A consulta oficial da Fipe disponibiliza a opcao de pesquisa por codigo para carros e utilitarios, caminhoes e micro-onibus e motos.</p>
+      <h3>Por que o codigo e util?</h3>
+      <ul>
+        <li>Identificar uma configuracao especifica</li>
+        <li>Reduzir duvidas entre modelos semelhantes</li>
+        <li>Facilitar consultas futuras</li>
+        <li>Conferir se voce esta pesquisando o veiculo correto</li>
+      </ul>
+
+      <!-- ANO FABRICACAO -->
+      <h2 id="ano-fabricacao">Ano de fabricacao e ano-modelo sao a mesma coisa?</h2>
+      <div class="callout warn" id="callout-ano">
+        <div class="callout-icon">&#9888;&#65039;</div>
+        <div class="callout-body">
+          <strong>Atencao</strong>
+          <p>Na consulta de veiculos da Fipe, o ano considerado e o <strong>ano-modelo</strong>, e nao o ano de fabricacao. Um veiculo pode ter sido fabricado em um ano, mas possuir ano-modelo do ano seguinte.</p>
+        </div>
+      </div>
+      <p>Por isso, nao e recomendavel escolher o ano apenas observando a data de fabricacao. Confira: ano de fabricacao, ano-modelo, modelo, versao e Codigo Fipe quando disponivel. Essa conferencia reduz o risco de comparar veiculos diferentes.</p>
+
+      <!-- COMPRA -->
+      <h2 id="compra-carro">Tabela Fipe e compra de carro usado</h2>
+      <p>Imagine que voce encontrou um veiculo anunciado por R$ 65.000. Antes de negociar, voce pode pesquisar o mesmo modelo e ano na Tabela Fipe. Suponha que o valor medio de referencia encontrado seja R$ 62.000. Isso nao significa automaticamente que o vendedor esta cobrando caro. O veiculo pode possuir estado de conservacao superior, baixa quilometragem, equipamentos adicionais, historico de manutencao, pneus novos e caracteristicas que aumentam sua atratividade.</p>
+      <p>Por outro lado, se o veiculo estiver sendo vendido por valor muito abaixo da referencia, isso tambem nao significa que seja uma excelente oportunidade. Por isso, o ideal e perguntar: <strong>Por que o veiculo esta abaixo da media?</strong></p>
+
+      <!-- NEGOCIAR -->
+      <h2 id="como-negociar">Como usar a Tabela Fipe para negociar?</h2>
+      <p>A melhor maneira e utilizar o valor como ponto de partida. Nao trate a referencia como uma regra absoluta.</p>
+
+      <div class="checklist-box" id="checklist-negociar">
+        <div class="title">&#129309; Estrategia simples de negociacao</div>
+        <ul>
+          <li>Consulte o veiculo correto</li>
+          <li>Anote o valor de referencia</li>
+          <li>Pesquise anuncios semelhantes</li>
+          <li>Compare quilometragem e avalie conservacao</li>
+          <li>Verifique equipamentos</li>
+          <li>Faca uma inspecao</li>
+          <li>Considere custos futuros</li>
+          <li>Defina um limite de negociacao</li>
+          <li>So entao faca uma proposta</li>
+        </ul>
+      </div>
+
+      <img src="img4.jpg" alt="Dois homens negociando veiculo consultando FIPE no celular" class="article-img" id="img-negociacao" onerror="this.style.display='none'" />
+
+      <!-- VENDA -->
+      <h2 id="venda-veiculos">Tabela Fipe e venda de veiculos</h2>
+      <p>Para quem esta vendendo, a consulta tambem pode ser muito util. O proprietario pode verificar a referencia media antes de definir o preco do anuncio. Com essas informacoes, torna-se mais facil estabelecer uma faixa de preco coerente.</p>
+      <div class="callout warn" id="callout-erros-venda">
+        <div class="callout-icon">&#9888;&#65039;</div>
+        <div class="callout-body">
+          <strong>Evite dois erros comuns</strong>
+          <p><strong>Preco muito alto:</strong> pode reduzir o numero de interessados. <strong>Preco muito baixo:</strong> pode fazer o proprietario perder dinheiro ou levantar duvidas sobre o veiculo.</p>
+        </div>
+      </div>
+
+      <!-- ATUALIZACAO -->
+      <h2 id="atualizacao">Tabela Fipe e atualizada?</h2>
+      <p>Os valores sao apresentados de acordo com um mes e ano de referencia. Isso significa que uma consulta feita em um periodo diferente pode apresentar um resultado diferente. Por isso, ao utilizar uma informacao encontrada em um anuncio antigo, postagem de rede social ou conversa, verifique sempre o periodo correspondente. Um valor informado ha meses pode nao representar a mesma referencia disponivel atualmente.</p>
+
+      <!-- ONDE CONSULTAR -->
+      <h2 id="onde-consultar">Onde consultar a Tabela Fipe?</h2>
+      <p>A consulta publica oficial dos precos medios de veiculos esta disponivel pelos canais da Fundacao Instituto de Pesquisas Economicas. A propria Fipe alerta que sua consulta oficial deve ser realizada nos canais correspondentes ao dominio oficial da instituicao.</p>
+      <p>Para facilitar a pesquisa e a compreensao dos dados relacionados ao mercado automotivo, voce tambem pode utilizar uma ferramenta especializada como o Consulta FIPE. O objetivo de uma plataforma de consulta e facilitar o acesso as informacoes e permitir que o usuario encontre rapidamente os dados necessarios para sua pesquisa.</p>
+
+      <!-- VALOR EXATO -->
+      <h2 id="valor-exato">Tabela Fipe serve para descobrir o valor exato do meu carro?</h2>
+      <p>Nao. Essa distincao e essencial. A Tabela Fipe apresenta um preco medio de referencia, enquanto o preco especifico do seu veiculo depende das caracteristicas daquele exemplar.</p>
+
+      <div class="table-wrap" id="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Caracteristica</th>
+              <th>Veiculo A</th>
+              <th>Veiculo B</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Modelo</td><td>Mesmo</td><td>Mesmo</td></tr>
+            <tr><td>Ano-modelo</td><td>Mesmo</td><td>Mesmo</td></tr>
+            <tr><td>Quilometragem</td><td>Baixa</td><td>Alta</td></tr>
+            <tr><td>Conservacao</td><td>Excelente</td><td>Regular</td></tr>
+            <tr><td>Pneus</td><td>Novos</td><td>Desgastados</td></tr>
+            <tr><td>Historico</td><td>Completo</td><td>Limitado</td></tr>
+            <tr><td>Preco final</td><td>&#9989; Pode ser maior</td><td>&#11015;&#65039; Pode ser menor</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FATORES -->
+      <h2 id="fatores">Quais fatores podem aumentar ou diminuir o valor de um veiculo?</h2>
+      <h3>Fatores que podem favorecer a valorizacao</h3>
+      <ul>
+        <li>Excelente conservacao</li>
+        <li>Baixa quilometragem</li>
+        <li>Manutencao comprovada</li>
+        <li>Pneus em bom estado</li>
+        <li>Documentacao organizada</li>
+        <li>Boa procura pelo modelo</li>
+        <li>Equipamentos valorizados pelo mercado</li>
+        <li>Historico de uso bem documentado</li>
+      </ul>
+      <h3>Fatores que podem reduzir o interesse</h3>
+      <ul>
+        <li>Problemas mecanicos</li>
+        <li>Pneus desgastados</li>
+        <li>Necessidade de pintura</li>
+        <li>Interior danificado</li>
+        <li>Manutencao atrasada</li>
+        <li>Historico desconhecido</li>
+        <li>Alta quilometragem</li>
+        <li>Modificacoes que reduzem a atratividade</li>
+        <li>Problemas documentais</li>
+      </ul>
+
+      <!-- CELULAR -->
+      <h2 id="pelo-celular">E possivel consultar a Tabela Fipe pelo celular?</h2>
+      <p>Sim. A consulta pode ser realizada utilizando dispositivos moveis, desde que o usuario tenha acesso a internet e ao canal de consulta correspondente. Isso e particularmente util quando voce esta olhando um veiculo em uma loja, concessionaria ou diretamente com um vendedor. A Fipe tambem informa em seu site oficial que disponibiliza gratuitamente seu aplicativo oficial.</p>
+
+      <!-- SEGURO -->
+      <h2 id="seguro">Tabela Fipe e seguro de veiculos</h2>
+      <p>A referencia de precos medios tambem possui importancia no setor de seguros. A Fipe informa que seus precos sao utilizados como referencia por seguradoras. Entretanto, isso nao significa que toda apolice de seguro utilizara exatamente o mesmo valor em qualquer situacao. Cada contrato possui suas proprias condicoes. Por isso, o proprietario deve consultar a apolice e verificar como a seguradora define a indenizacao em caso de sinistro.</p>
+
+      <!-- IPVA -->
+      <h2 id="ipva">Tabela Fipe e IPVA</h2>
+      <p>Outro assunto frequentemente relacionado a Tabela Fipe e o IPVA. A Fipe informa que presta servicos para estados da federacao, utilizando informacoes de precos medios como base para determinados calculos relacionados ao IPVA.</p>
+      <div class="callout info" id="callout-ipva">
+        <div class="callout-icon">&#8505;&#65039;</div>
+        <div class="callout-body">
+          <strong>Importante sobre IPVA</strong>
+          <p>Nao e correto assumir que simplesmente multiplicar o valor consultado na Tabela Fipe por uma porcentagem produzira o valor final do IPVA. Para saber o imposto correto, verifique as regras oficiais do estado onde o veiculo esta registrado.</p>
+        </div>
+      </div>
+
+      <!-- ERROS COMUNS -->
+      <h2 id="erros-comuns">Erros comuns ao consultar a Tabela Fipe</h2>
+      <p>Mesmo sendo uma consulta relativamente simples, alguns erros podem gerar resultados incorretos.</p>
+      <div class="step-box" id="erro1"><div class="step-num">1</div><div class="step-content"><h4>Escolher o ano errado</h4><p>O ano-modelo deve ser conferido com atencao e nao confundido com o ano de fabricacao.</p></div></div>
+      <div class="step-box" id="erro2"><div class="step-num">2</div><div class="step-content"><h4>Selecionar uma versao diferente</h4><p>Modelos semelhantes podem possuir configuracoes diferentes com precos distintos.</p></div></div>
+      <div class="step-box" id="erro3"><div class="step-num">3</div><div class="step-content"><h4>Ignorar o mes de referencia</h4><p>O valor deve ser analisado considerando o periodo correspondente da consulta.</p></div></div>
+      <div class="step-box" id="erro4"><div class="step-num">4</div><div class="step-content"><h4>Considerar o valor como preco obrigatorio</h4><p>A Tabela Fipe e uma referencia media, nao uma determinacao automatica do preco final.</p></div></div>
+      <div class="step-box" id="erro5"><div class="step-num">5</div><div class="step-content"><h4>Nao avaliar o estado do veiculo</h4><p>Conservacao e manutencao podem alterar significativamente uma negociacao.</p></div></div>
+      <div class="step-box" id="erro6"><div class="step-num">6</div><div class="step-content"><h4>Nao pesquisar o mercado local</h4><p>Anuncios da mesma regiao ajudam a compreender a realidade da oferta e demanda.</p></div></div>
+
+      <!-- AVALIACAO COMPLETA -->
+      <h2 id="avaliacao-completa">Como fazer uma avaliacao mais completa?</h2>
+      <p>Uma avaliacao mais inteligente combina diferentes informacoes.</p>
+      <ol>
+        <li><strong>Consulte a Tabela Fipe</strong> - Primeiro, encontre o preco medio correspondente.</li>
+        <li><strong>Pesquise anuncios</strong> - Observe veiculos semelhantes anunciados na sua regiao.</li>
+        <li><strong>Compare caracteristicas</strong> - Ano, versao, quilometragem, conservacao, equipamentos e historico.</li>
+        <li><strong>Faca uma inspecao</strong> - Se estiver comprando, leve o veiculo para avaliacao mecanica quando possivel.</li>
+        <li><strong>Verifique a documentacao</strong> - Nao baseie uma compra apenas no preco.</li>
+        <li><strong>Calcule os custos adicionais</strong> - Transferencia, manutencao, seguro, pneus, impostos, combustivel e eventuais reparos.</li>
+        <li><strong>Negocie</strong> - Somente depois de reunir essas informacoes, estabeleca sua proposta.</li>
+      </ol>
+
+      <!-- SUFICIENTE -->
+      <h2 id="suficiente">Tabela Fipe e suficiente para comprar um carro?</h2>
+      <div class="callout tip" id="callout-suficiente">
+        <div class="callout-icon">&#9989;</div>
+        <div class="callout-body">
+          <strong>Resposta curta: Nao.</strong>
+          <p>Ela e uma ferramenta de referencia, mas nao substitui uma analise completa. Uma compra segura deve considerar preco, estado mecanico, conservacao, documentacao, historico, quilometragem, procedencia e custos futuros.</p>
+        </div>
+      </div>
+      <p>Um carro barato pode sair caro se apresentar problemas ocultos. Da mesma forma, um veiculo ligeiramente mais caro pode representar uma compra melhor quando esta bem conservado e possui historico de manutencao confiavel.</p>
+
+      <!-- ANCHOR LINK: CNPJ -->
+      <h2 id="combinacao-cnpj">Como combinar Tabela Fipe com pesquisa de CNPJ?</h2>
+      <p>Quando a negociacao envolve uma empresa, tambem pode ser interessante verificar informacoes cadastrais do estabelecimento. Por exemplo, se voce estiver comprando um veiculo de uma loja, concessionaria ou empresa, pode desejar confirmar os dados cadastrais antes de fechar negocio.</p>
+      <p>Para quem procura especificamente esse tipo de informacao, uma consulta relacionada ao cadastro empresarial pode complementar a pesquisa. Voce pode acessar a pagina de referencia <a href="https://consultafipe.app/" id="anchor-cnpj" class="inline-link">consulta qual o CNPJ de uma empresa</a> para buscar informacoes relacionadas a identificacao cadastral de empresas.</p>
+      <div class="callout info" id="callout-cnpj">
+        <div class="callout-icon">&#128161;</div>
+        <div class="callout-body">
+          <strong>Combinacao util</strong>
+          <p>A Tabela Fipe ajuda a entender o valor medio de referencia do veiculo, enquanto uma consulta cadastral pode ajudar a identificar a empresa envolvida na negociacao. Essa combinacao e especialmente util quando o comprador esta negociando com uma empresa desconhecida.</p>
+        </div>
+      </div>
+
+      <!-- FIPE VS ANUNCIO -->
+      <h2 id="fipe-vs-anuncio">Tabela Fipe x preco de anuncio</h2>
+      <p>E importante separar tres conceitos:</p>
+
+      <div class="formula-card" id="formula-precos">
+        <div class="label">Os tres precos no mercado automotivo</div>
+        <div class="formula">
+          <div class="pill">&#128202; Tabela Fipe<br><small style="opacity:.7;font-size:.75rem">Referencia media</small></div>
+          <div class="arrow">&#8800;</div>
+          <div class="pill">&#127991;&#65039; Preco anunciado<br><small style="opacity:.7;font-size:.75rem">Valor do vendedor</small></div>
+          <div class="arrow">&#8800;</div>
+          <div class="pill">&#129309; Preco negociado<br><small style="opacity:.7;font-size:.75rem">Valor final acordado</small></div>
+        </div>
+      </div>
+
+      <!-- CARO / BARATO -->
+      <h2 id="caro-barato">Como saber se um carro esta caro ou barato?</h2>
+      <p>Uma maneira pratica e comparar o valor de referencia com os precos de veiculos semelhantes, considerando quilometragem, estado de conservacao, versao, equipamentos, regiao e historico de manutencao. Se um carro estiver muito acima da referencia, procure entender o motivo. Por outro lado, se estiver muito abaixo, investigue antes de considerar a oferta como oportunidade. <strong>Preco baixo nunca deve ser o unico motivo para comprar um veiculo.</strong></p>
+      <p>Quando o preco for inferior, pergunte: O veiculo possui algum problema? A documentacao esta regular? Existe historico de acidente? A manutencao esta em dia? A quilometragem e compativel? O vendedor e confiavel?</p>
+
+      <!-- ATUALIZACAO POR MODELO -->
+      <h2 id="atualizacao-modelos">A Tabela Fipe muda para todos os veiculos?</h2>
+      <p>Nao necessariamente da mesma maneira. Os precos medios variam conforme modelo, ano e condicoes do mercado. Alguns veiculos podem apresentar alteracoes maiores em determinados periodos, enquanto outros podem permanecer relativamente estaveis. Por isso, quem esta acompanhando o mercado deve consultar a referencia correspondente ao periodo desejado.</p>
+
+      <!-- VALE A PENA -->
+      <h2 id="vale-a-pena">Vale a pena consultar antes de vender ou comprar?</h2>
+      <p><strong>Sim, para ambos os casos.</strong> Para o vendedor, a consulta ajuda a evitar decisoes baseadas apenas em percepcao pessoal. Muitos proprietarios estabelecem o preco de um carro pensando no quanto pagaram originalmente. Entretanto, o mercado atual pode estar diferente. O valor de compra passado nao determina necessariamente o valor atual.</p>
+      <p>Para o comprador, conhecer uma referencia de preco ajuda principalmente durante a negociacao. Imagine que o vendedor esteja pedindo R$ 75.000. Se voce descobrir que a referencia media esta em R$ 65.000, tera um motivo para investigar a diferenca. Essa pergunta pode melhorar muito a qualidade da negociacao: <strong>O que justifica a diferenca de preco?</strong></p>
+
+      <!-- DICAS PRATICAS -->
+      <h2 id="dicas-praticas">Dicas praticas para usar melhor a Tabela Fipe</h2>
+      <div class="checklist-box" id="checklist-dicas">
+        <div class="title">&#128161; Siga estas recomendacoes</div>
+        <ul>
+          <li>Consulte sempre o modelo correto</li>
+          <li>Confira o ano-modelo</li>
+          <li>Observe o mes de referencia</li>
+          <li>Anote o Codigo Fipe quando disponivel</li>
+          <li>Compare precos de anuncios</li>
+          <li>Avalie a conservacao</li>
+          <li>Confira a quilometragem</li>
+          <li>Faca inspecao mecanica</li>
+          <li>Verifique a documentacao</li>
+          <li>Pesquise o historico do veiculo</li>
+          <li>Nao confunda preco medio com preco obrigatorio</li>
+          <li>Considere as condicoes do mercado local</li>
+          <li>Nao tome uma decisao apenas com base em um unico numero</li>
+        </ul>
+      </div>
+
+      <!-- FAQ -->
+      <h2 id="faq">Perguntas frequentes sobre a Tabela Fipe</h2>
+
+      <div class="faq-item" id="faq-1">
+        <button class="faq-question" id="faq-btn-1" onclick="toggleFAQ(this)">
+          O que e a Tabela Fipe?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">A Tabela Fipe apresenta precos medios de veiculos no mercado nacional e funciona como referencia para negociacoes e avaliacoes. A propria Fipe destaca que o preco efetivamente praticado pode variar conforme diversos fatores.</div>
+      </div>
+
+      <div class="faq-item" id="faq-2">
+        <button class="faq-question" id="faq-btn-2" onclick="toggleFAQ(this)">
+          A Tabela Fipe mostra o preco exato do meu carro?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">Nao. Ela apresenta um preco medio de referencia. O valor real pode variar conforme conservacao, regiao, quilometragem, acessorios, oferta, procura e outras caracteristicas.</div>
+      </div>
+
+      <div class="faq-item" id="faq-3">
+        <button class="faq-question" id="faq-btn-3" onclick="toggleFAQ(this)">
+          A Tabela Fipe serve para motos?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">Sim. A consulta oficial inclui motocicletas entre as categorias de veiculos disponiveis.</div>
+      </div>
+
+      <div class="faq-item" id="faq-4">
+        <button class="faq-question" id="faq-btn-4" onclick="toggleFAQ(this)">
+          A Tabela Fipe serve para caminhoes?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">Sim. A consulta publica tambem contempla caminhoes e micro-onibus.</div>
+      </div>
+
+      <div class="faq-item" id="faq-5">
+        <button class="faq-question" id="faq-btn-5" onclick="toggleFAQ(this)">
+          O ano da Tabela Fipe e o ano de fabricacao?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">Nao necessariamente. Na consulta da Fipe, o ano do veiculo corresponde ao ano-modelo.</div>
+      </div>
+
+      <div class="faq-item" id="faq-6">
+        <button class="faq-question" id="faq-btn-6" onclick="toggleFAQ(this)">
+          O preco da Tabela Fipe e obrigatorio em uma negociacao?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">Nao. Ele funciona como referencia media e nao determina automaticamente o preco final de compra ou venda.</div>
+      </div>
+
+      <div class="faq-item" id="faq-7">
+        <button class="faq-question" id="faq-btn-7" onclick="toggleFAQ(this)">
+          Por que dois carros iguais podem ter precos diferentes?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">Porque podem possuir diferencas de conservacao, quilometragem, localizacao, acessorios, historico e condicoes de oferta e procura.</div>
+      </div>
+
+      <div class="faq-item" id="faq-8">
+        <button class="faq-question" id="faq-btn-8" onclick="toggleFAQ(this)">
+          Posso consultar pelo Codigo Fipe?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">Sim. A consulta oficial disponibiliza pesquisa por Codigo Fipe para diferentes categorias de veiculos.</div>
+      </div>
+
+      <div class="faq-item" id="faq-9">
+        <button class="faq-question" id="faq-btn-9" onclick="toggleFAQ(this)">
+          A Tabela Fipe e usada por seguradoras?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">Sim. A Fipe informa que seus precos medios sao utilizados como referencia por seguradoras.</div>
+      </div>
+
+      <div class="faq-item" id="faq-10">
+        <button class="faq-question" id="faq-btn-10" onclick="toggleFAQ(this)">
+          A Tabela Fipe pode ser usada para avaliar um carro usado?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">Sim. Ela e uma excelente referencia inicial, mas deve ser combinada com inspecao do veiculo, pesquisa de mercado e analise documental.</div>
+      </div>
+
+      <div class="faq-item" id="faq-11">
+        <button class="faq-question" id="faq-btn-11" onclick="toggleFAQ(this)">
+          Onde posso pesquisar informacoes relacionadas a Tabela Fipe?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">Voce pode utilizar uma plataforma de consulta especializada como <a href="https://consultafipe.app/" class="inline-link" id="faq-link-consulta">Consulta FIPE</a> para facilitar sua pesquisa.</div>
+      </div>
+
+    </article>
+
+    <!-- CONCLUSION -->
+    <div class="conclusion-card" id="conclusao">
+      <h2>Conclusao</h2>
+      <p>A Tabela Fipe e uma das principais referencias utilizadas no Brasil para compreender o preco medio de veiculos. Ela pode ser muito util para quem pretende comprar, vender ou simplesmente acompanhar o valor de determinado carro, moto ou caminhao.</p>
+      <p>No entanto, seu resultado deve ser interpretado corretamente. O preco apresentado nao e necessariamente o valor final de negociacao. A propria Fundacao Instituto de Pesquisas Economicas explica que os precos efetivamente praticados podem variar de acordo com regiao, conservacao, cor, acessorios e condicoes de oferta e procura.</p>
+      <p>Por isso, uma boa avaliacao deve combinar a referencia da Tabela Fipe com informacoes reais sobre o veiculo. Antes de comprar, compare anuncios, examine o automovel, confira a documentacao e avalie possiveis custos futuros. Antes de vender, pesquise o mercado, analise as caracteristicas do veiculo e estabeleca um preco coerente.</p>
+
+      <div class="summary-row" id="summary-row">
+        <div class="summary-pill">
+          <div class="icon-big">&#128202;</div>
+          <div class="pill-label">Tabela Fipe</div>
+          <div class="pill-value">Referencia de preco medio</div>
+        </div>
+        <div class="summary-pill">
+          <div class="icon-big">&#127991;&#65039;</div>
+          <div class="pill-label">Preco de anuncio</div>
+          <div class="pill-value">Valor solicitado pelo vendedor</div>
+        </div>
+        <div class="summary-pill">
+          <div class="icon-big">&#129309;</div>
+          <div class="pill-label">Preco negociado</div>
+          <div class="pill-value">Valor efetivamente acordado</div>
+        </div>
+      </div>
+
+      <p style="margin-top:24px;">Entender essa diferenca e o primeiro passo para tomar decisoes mais conscientes no mercado automotivo brasileiro.</p>
+
+      <a href="https://consultafipe.app/" class="cta-btn" id="cta-consultar">
+        &#128663; Consultar Tabela Fipe agora
+      </a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <p>&copy; 2026 <a href="https://consultafipe.app/" id="footer-link">Consulta FIPE</a> &middot; Todos os direitos reservados &middot; <a href="https://consultafipe.app/" id="footer-privacy">Politica de Privacidade</a></p>
+    <p style="margin-top:6px;font-size:.75rem;">Os valores da Tabela Fipe sao referencias medias de mercado. Precos reais podem variar.</p>
+  </footer>
+
+  <script>
+    function toggleFAQ(btn) {
+      var item = btn.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    }
+
+    window.addEventListener('scroll', function() {
+      var scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      var bar = document.getElementById('flag-bar');
+      if (bar) {
+        bar.style.background = 'linear-gradient(90deg, #16a34a ' + scrolled + '%, #e2e8f0 ' + scrolled + '%)';
+      }
+    });
+  </script>
+</body>
+</html>
